@@ -7,26 +7,23 @@ import skimage
 import matplotlib
 
 
-def image_displaying(source, canny, finale_p, finale, parametric, mn, mx, nmbr):
-    fig,  axs = plt.subplot_mosaic([['src', 'can'], ['fin', 'finp'], ['p', 'info']], layout='tight', figsize=(9.2, 7.8))
+def image_displaying(source, canny, finale, finale_r, sp, mn, mx):
+    fig,  axs = plt.subplot_mosaic([['src', 'can'], ['fin', 'finr'], ['info', 'infor']], layout='tight', figsize=(9.2, 7.8))
     axs['src'].imshow(cv.cvtColor(source, cv.COLOR_BGR2RGB))
     axs['can'].imshow(canny, cmap=matplotlib.cm.gray)
     axs['fin'].imshow(cv.cvtColor(finale, cv.COLOR_BGR2RGB))
-    axs['finp'].imshow(cv.cvtColor(finale_p, cv.COLOR_BGR2RGB))
-    axs['p'].imshow(cv.resize(parametric.astype(np.float32) / np.max(parametric),
-                               (parametric.shape[1], 300)), cmap=matplotlib.cm.gray)
+    axs['finr'].imshow(cv.cvtColor(finale_r, cv.COLOR_BGR2RGB))
     axs['src'].axis('off')
     axs['can'].axis('off')
     axs['fin'].axis('off')
-    axs['finp'].axis('off')
-    axs['p'].axis('off')
+    axs['finr'].axis('off')
     axs['info'].axis('off')
+    axs['infor'].axis('off')
     axs['src'].set_title('Image')
     axs['can'].set_title('Canny edges')
-    axs['fin'].set_title('Hough')
-    axs['finp'].set_title('Probabilistic Hough')
-    axs['p'].set_title('Parameter space')
-    axs['info'].text(0.5, 0.5, f'Number of lines: {nmbr}\nShortest line: {mn}\nLongest line: {mx}', size=25,
+    axs['fin'].set_title('Hough (Specified radius)')
+    axs['finr'].set_title(' Hough (Range)')
+    axs['info'].text(0.5, 0.5, f'Radius length:{sp}', size=25,
                      ha='center',
                      va='center',
                      bbox=dict(boxstyle="square",
@@ -34,8 +31,16 @@ def image_displaying(source, canny, finale_p, finale, parametric, mn, mx, nmbr):
                                fc=(1., 0.8, 0.8)
                                )
                      )
+    axs['infor'].text(0.5, 0.5, f'Min radius: {mn}\nMax line: {mx}', size=25,
+                      ha='center',
+                      va='center',
+                      bbox=dict(boxstyle="square",
+                                ec=(1., 0.5, 0.5),
+                                fc=(1., 0.8, 0.8)
+                                )
+                      )
     plt.show()
-    fig.savefig('results/lines/Klinom.jpg')
+    # fig.savefig('results/circles/olympic_gray.jpg')
     plt.close()
 
 
@@ -95,28 +100,36 @@ def line_detection(option, image):
 
 def circle_detection(option, image):
     result = image.copy()
-    edged = cv.Canny(image, 400, 450, None, 3)
+    result_r = image.copy()
+    edged = image
     match option:
         case 0:
             cv.imshow('Source Image', image)
             cv.waitKey(0)
         case 1:
-            hough_radius = np.arange(175, 185)
+            hough_radius = np.arange(180, 181)
             hough_res = skimage.transform.hough_circle(edged, hough_radius)
-            ha, cx, cy, radii = skimage.transform.hough_circle_peaks(hough_res, hough_radius, total_num_peaks=5)
+            ha, cx, cy, radii = skimage.transform.hough_circle_peaks(hough_res, hough_radius, total_num_peaks=1)
             for center_y, center_x, radius in zip(cy, cx, radii):
-                cv.circle(result, (center_x, center_y), int(radius), (128, 0, 128), 2, cv.LINE_AA)
-            image_displaying(image, edged, result, result, ha, cx, cy, cx)
+                cv.circle(result, (center_x, center_y), int(radius), (255, 255, 0), 10, cv.LINE_AA)
+            hough_radius_r = np.arange(175, 239)
+            hough_res_r = skimage.transform.hough_circle(edged, hough_radius_r)
+            ha, cx, cy, radii = skimage.transform.hough_circle_peaks(hough_res_r, hough_radius_r, total_num_peaks=4)
+            for center_y, center_x, radius in zip(cy, cx, radii):
+                cv.circle(result_r, (center_x, center_y), int(radius), (255, 255, 0), 10, cv.LINE_AA)
+            image_displaying(image, edged, result, result_r, hough_radius[0], hough_radius_r[0], hough_radius_r[-1])
+            # cv.imwrite('results/circles/Mercedes_SP.jpg', result)
+            # cv.imwrite('results/circles/Mercedes_R.jpg', result_r)
         case _:
             print('Wrong option! Enter the right number')
 
 
-src = cv.imread("images/lines_detection/Klinom Krasnym Bej Belych.jpeg")
+src = cv.imread("images/circles_detection/olympic.jpeg", 0)
 if src is None:
     print('Opps! Error opening image =(')
     sys.exit("Could not read the image.")
 
-line_detection(1, src)
+circle_detection(1, src)
 
 
 
