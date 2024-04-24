@@ -1,0 +1,93 @@
+\subsection{Исходные изображения}
+Настало время подобрать изображения, содержащие окружности. Мы, авторы этого отчёта --- господа спортивные, поэтому для этого задания мы использовали самый известный символ спортивного движения:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/circles/source/olympic.jpeg}
+    \caption{Олимпийский флаг}
+    \label{img:ol_logo}
+\end{figure} 
+
+Мы не имели никакого права не обратиться к произведениям основоположника абстракционизма и нашего соотечественника --- Василия Васильевича Кандинского:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/circles/source/Kandinsky_Several_Circles.jpg}
+    \caption{В.В. Кандинский -- Несколько кругов}
+    \label{img:kan_logo}
+\end{figure} 
+
+\clearpage
+
+Последним изображением стала фотография Mercedes-Benz 300 SEL AMG <<Красная свинья>>, ставший ключевым элементом в первом для новой компании AMG триумфе в автогонках:
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/circles/source/Mercedes 300 SEL 6.8 AMG red pig.jpg}
+    \caption{ Mercedes-Benz 300 SEL AMG <<Красная свинья>>}
+    \label{img:mr_logo}
+\end{figure} 
+
+\subsection{Программа на языке Python}
+\input{circle_code.tex}
+\subsection{Результаты преобразования}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/circles/olympics.jpg}
+    \caption{Исходное изображение 1; контуры изображения, полученные алгоритмом Кэнни; результаты преобразования Хафа для определенного радиуса и диапазона радиусов}
+    \label{img:fin_ol}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/circles/Kandinsky_Several_Circles.jpg}
+    \caption{Исходное изображение 2; контуры изображения, полученные алгоритмом Кэнни; результаты преобразования Хафа для определенного радиуса и диапазона радиусов}
+    \label{img:kan_fin}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/circles/Kandinsky_Several_Circles_SP.jpg}
+        \caption{Результат преобразования Хафа для определенного радиуса окружностей}
+        \label{img:kan_sp}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/circles/Kandinsky_Several_Circles_R.jpg}
+        \caption{Результат преобразования Хафа для диапазона радиусов}
+        \label{img:kan_r}
+    \end{subfigure}
+        \caption{Результаты преобразования Хафа}
+       \label{img::kan_comp}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{images/circles/Mercedes.jpg}
+    \caption{Исходное изображение 3; контуры изображения, полученные алгоритмом Кэнни; результаты преобразования Хафа для определенного радиуса и диапазона радиусов}
+    \label{img:mr_fin}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/circles/Mercedes_SP.jpg}
+        \caption{Результат преобразования Хафа для определенного радиуса окружностей}
+        \label{img:mer_sp}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/circles/Mercedes_R.jpg}
+        \caption{Результат преобразования Хафа для диапазона радиусов}
+        \label{img:mer_r}
+    \end{subfigure}
+        \caption{Результаты преобразования Хафа}
+       \label{img::mer_comp}
+\end{figure}
+
+\clearpage

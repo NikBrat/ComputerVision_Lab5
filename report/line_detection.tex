@@ -1,6 +1,88 @@
 \subsection{Исходные изображения}
+Выберем изображения, которые содержат прямые линии. Первым изображением будет логотип нашего любимого университета:
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/lines/source/ITMO_LOGO.jpeg}
+    \caption{Логотип университета ИТМО}
+    \label{img:src_logo}
+\end{figure} 
 
-\subsection{Код на питоне}
-\subsection{Результаты поиска}
-\subsection{Бонус. Клином красным бей белых!}
+Также возьмём рисунок, составленный из прямых линий:
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/lines/source/wovenlinesfinal.jpeg}
+    \caption{Паркет ёлочкой}
+    \label{img:src_fir}
+\end{figure} 
+
+И обратимся к творчеству абстракциониста Пита Мондриана:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/lines/source/Piet_Mondriaan_-_03.jpg}
+    \caption{Цифровая репродукция картины Пита Мондриана}
+    \label{img:src_piet}
+\end{figure} 
+
+\subsection{Программа на языке Python}
+\input{line_code.tex}
+
+\subsection{Результаты преобразования}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{images/lines/ITMO.jpg}
+    \caption{Исходное изображение 1; контуры изображения, полученные алгоритмом Кэнни; результаты классического и вероятностного преобразованием Хафа; пространство параметров;подсчёт прямых}
+    \label{img:fin_ITMO}
+\end{figure} 
+
+\clearpage
+
+Вероятностное преобразование Хафа в результате работы выдаёт значения крайних точек распознанных линий, поэтому результат его работы позволяет довольно точно выделить их. Классическое преобразование, в свою очередь, возвращает угол наклона и длину радиус вектора прямой, которой принадлежит исходная линия. Наши выводы подтверждаются рисунками \ref*{img:fin_ITMO}, \ref*{img:src_fir} и \ref*{img:fin_piet}.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{images/lines/simple_lines.jpg}
+    \caption{Исходное изображение 2; контуры изображения, полученные алгоритмом Кэнни; результаты классического и вероятностного преобразованием Хафа; пространство параметров;подсчёт прямых}
+    \label{img:fin_fir}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{images/lines/Mondrian_03.jpg}
+    \caption{Исходное изображение 3; контуры изображения, полученные алгоритмом Кэнни; результаты классического и вероятностного преобразованием Хафа; пространство параметров;подсчёт прямых}
+    \label{img:fin_piet}
+\end{figure}
+
+\clearpage
+% \subsection{Бонус. Клином красным бей белых!}
+
+Теперь попробуем применить преобразование к полутоновым изображениям:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{images/lines/ITMO_gray.jpg}
+    \caption{Исходное изображение 1; полутоновое изображение; результаты классического и вероятностного преобразованием Хафа; пространство параметров;подсчёт прямых}
+    \label{img:fin_ITMO_gray}
+\end{figure} 
+
+Можно констатировать, что в данном случае преобразование Хафа не справляется с поставленной задачей. Это связано с тем, что алгоритм воспринимает в качестве контуров всю область изображения вокруг чёрных участков. Поэтому на изображении с логотипом прямыми линиями были выделена вся область вокруг букв (см. рисунок \ref*{img:fin_ITMO_gray}), исключение составили участки, ширина которых составляла менее 30 пикселей. Аналогичный результат получился в случае обработке репродукции Пита Мондриана (см. рисунок \ref*{img:fin_piet_gray}).
+
+Из-за тонких чёрных линий 2 изображения (рисунок \ref{img:src_fir}) линии полностью покрыли его, в результате чего мы получили жёлтый прямоугольник (см. рисунок \ref*{img:fin_fir_gray}).
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{images/lines/simple_lines_gray.jpg}
+    \caption{Исходное изображение 2; полутоновое изображение; результаты классического и вероятностного преобразованием Хафа; пространство параметров;подсчёт прямых}
+    \label{img:fin_fir_gray}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{images/lines/Mondrian_03_gray.jpg}
+    \caption{Исходное изображение 3; полутоновое изображение; результаты классического и вероятностного преобразованием Хафа; пространство параметров;подсчёт прямых}
+    \label{img:fin_piet_gray}
+\end{figure}
+
+\clearpage
